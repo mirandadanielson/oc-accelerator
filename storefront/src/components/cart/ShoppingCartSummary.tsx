@@ -3,6 +3,7 @@ import {
     ButtonGroup,
     Divider,
     Flex,
+    Input,
     Stack,
     Text,
     VStack
@@ -21,6 +22,7 @@ interface CartSummaryProps {
 
 
 const CartSummary: React.FC<CartSummaryProps> = ({
+  order,
   lineItems,
   deleteOrder
 }) => {
@@ -32,16 +34,16 @@ const CartSummary: React.FC<CartSummaryProps> = ({
     <VStack align="stretch" spacing={6}>
       <ButtonGroup alignSelf="flex-end" alignItems="center" gap={3} mt={-3}>
         <Button variant="link" size="xs" onClick={deleteOrder}>
-          Discard all
+          Clear cart
         </Button>
         <Button
           size="xs"
           variant="outline"
           alignSelf="flex-end"
           as={RouterLink}
-          to="/trade-in/storefront"
+          to="/products"
         >
-          Trade in more items
+          Continue shopping
         </Button>
       </ButtonGroup>
       <OcCurrentOrderLineItemList
@@ -51,24 +53,24 @@ const CartSummary: React.FC<CartSummaryProps> = ({
         editable={false}
       />
       <Divider />
-      {/* <Flex>
+      <Flex>
         <Input placeholder="Gift card or discount code" />
         <Button ml={2} colorScheme="secondary">
           Apply
         </Button>
-      </Flex> */}
+      </Flex>
       <Stack spacing={3}>
-        {/* <Flex justify="space-between">
+        <Flex justify="space-between">
           <Text>Subtotal</Text>
           <Text>${order.Subtotal?.toFixed(2)}</Text>
         </Flex>
         <Flex justify="space-between">
           <Text>Shipping</Text>
           <Text>Calculated at next step</Text>
-        </Flex> */}
+        </Flex>
         <Flex justify="space-between" fontWeight="bold" fontSize="lg">
-          <Text>Total potential credit</Text>
-          <Text>${lineItems.reduce((prev, current) => prev + current.Product?.xp.BuyBackPriceRange.Min, 0).toFixed(2)} - ${lineItems.reduce((prev, current) => prev + current.Product?.xp.BuyBackPriceRange.Max, 0).toFixed(2)}</Text>
+          <Text>Total</Text>
+          <Text>${order.Total?.toFixed(2)}</Text>
         </Flex>
         {/* <Text fontSize="sm" color="gray.600">
           Including ${(order.TaxTotal || 0).toFixed(2)} in taxes

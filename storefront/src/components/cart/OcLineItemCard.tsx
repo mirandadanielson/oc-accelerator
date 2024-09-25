@@ -27,7 +27,7 @@ import React, {
 import { TbPhoto } from "react-icons/tb";
 import { Link as RouterLink } from "react-router-dom";
 import useDebounce from "../../hooks/useDebounce";
-// import formatPrice from "../../utils/formatPrice";
+import formatPrice from "../../utils/formatPrice";
 import OcQuantityInput from "./OcQuantityInput";
 
 interface OcLineItemCardProps {
@@ -66,13 +66,13 @@ const OcLineItemCard: FunctionComponent<OcLineItemCardProps> = ({
     updateLineItem(debouncedQuantity);
   }, [debouncedQuantity, updateLineItem]);
 
-  // const lineSubtotal = useMemo(() => {
-  //   return formatPrice(lineItem.LineSubtotal);
-  // }, [lineItem]);
+  const lineSubtotal = useMemo(() => {
+    return formatPrice(lineItem.LineSubtotal);
+  }, [lineItem]);
 
-  // const unitPrice = useMemo(() => {
-  //   return formatPrice(lineItem.UnitPrice);
-  // }, [lineItem]);
+  const unitPrice = useMemo(() => {
+    return formatPrice(lineItem.UnitPrice);
+  }, [lineItem]);
 
   return (
     <>
@@ -167,11 +167,11 @@ const OcLineItemCard: FunctionComponent<OcLineItemCardProps> = ({
           </Text>
         )}
         <VStack minW="75px" alignItems="flex-end" gap="0">
-          <Text fontWeight="600" fontSize="md">
-            ${product?.xp?.BuyBackPriceRange.Min} - ${product?.xp?.BuyBackPriceRange?.Max}
+          <Text fontWeight="600" fontSize="lg">
+            {lineSubtotal}
           </Text>
           <Text fontSize=".7em" color="chakra-subtle-text">
-            potential credit
+            ({unitPrice} each)
           </Text>
         </VStack>
       </HStack>

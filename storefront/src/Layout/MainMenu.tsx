@@ -18,7 +18,7 @@ import { useOrderCloudContext } from "@rwatt451/ordercloud-react";
 import {
   Cart,
   Catalog,
-  //LineItem,
+  LineItem,
   ListPage,
   Me,
 } from "ordercloud-javascript-sdk";
@@ -39,7 +39,7 @@ const MainMenu: FC<MainMenuProps> = ({ loginDisclosure }) => {
   const megaMenuDisclosure = useDisclosure();
   const [catalogs, setCatalogs] = useState<Catalog[]>([]);
   const [selectedCatalog, setSelectedCatalog] = useState<string>("");
-  //const [lineItems, setLineItems] = useState<LineItem[]>();
+  const [lineItems, setLineItems] = useState<LineItem[]>();
   const [totalQuantity, setTotalQuantity] = useState(0);
 
   const navigate = useNavigate();
@@ -66,7 +66,7 @@ const MainMenu: FC<MainMenuProps> = ({ loginDisclosure }) => {
       (sum, item) => sum + item.Quantity,
       0
     );
-    //setLineItems(result.Items);
+    setLineItems(result.Items);
     setTotalQuantity(totalQuantity);
   }, []);
 
@@ -104,25 +104,10 @@ const MainMenu: FC<MainMenuProps> = ({ loginDisclosure }) => {
       return (
         <Button
           as={RouterLink}
-          to={`/product-list/${catalogs[0].ID}`}
+          to={`/products/${catalogs[0].ID}`}
           variant="ghost"
         >
           Shop All Products
-        </Button>
-      );
-    }
-    return null;
-  };
-//adding a comment to trigger something to happen!
-  const renderRecommerceMenu = () => {
-    if (catalogs.length === 1) {
-      return (
-        <Button
-          as={RouterLink}
-          to={`/trade-in/${catalogs[0].ID}`}
-          variant="ghost"
-        >
-          Trade-in
         </Button>
       );
     }
@@ -160,12 +145,11 @@ const MainMenu: FC<MainMenuProps> = ({ loginDisclosure }) => {
               Categories
             </Button>
             {renderCatalogMenu()}
-            {renderRecommerceMenu()}
           </HStack>
           <HStack>
             {isLoggedIn && (
               <Heading size="sm">
-                {`Welcome, ${user?.FirstName} ${user?.LastName}`}
+                `Welcome, ${user?.FirstName} ${user?.LastName}`
               </Heading>
             )}
             <Button
@@ -173,37 +157,35 @@ const MainMenu: FC<MainMenuProps> = ({ loginDisclosure }) => {
               to="/cart"
               variant="outline"
               size="sm"
-              leftIcon={
-                totalQuantity !== 0 ? (
-                  <Box position="relative" mt="2px" mr="2px" lineHeight="1">
-                    <Box
-                      id="cartCountFrame"
-                      top="5px"
-                      left="6px"
-                      position="absolute"
-                      height="9px"
-                      width="15px"
-                      display="flex"
-                      alignItems="center"
-                      justifyContent="center"
-                    >
-                      <Text
-                        fontSize=".5rem"
-                        color="white"
-                        fontWeight="bold"
-                        letterSpacing="-.5px"
+              leftIcon={totalQuantity !== 0 ?
+                    <Box position="relative" mt="2px" mr="2px" lineHeight="1">
+                      <Box
+                        id="cartCountFrame"
+                        top="5px"
+                        left="6px"
+                        position="absolute"
+                        height="9px"
+                        width="15px"
+                        display="flex"
+                        alignItems="center"
+                        justifyContent="center"
                       >
-                        {totalQuantity}
-                      </Text>
-                    </Box>
+                        <Text
+                          fontSize=".5rem"
+                          color="white"
+                          fontWeight="bold"
+                          letterSpacing="-.5px"
+                        >
+                          {totalQuantity}
+                        </Text>
+                      </Box>
 
-                    <Icon
-                      fontSize="lg"
-                      as={TbShoppingCartFilled}
-                      color="gray.500"
-                    />
-                  </Box>
-                ) : undefined
+                      <Icon
+                        fontSize="lg"
+                        as={TbShoppingCartFilled}
+                        color="gray.500"
+                      />
+                    </Box>: undefined
               }
               aria-label={`Link to cart`}
             >

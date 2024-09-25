@@ -23,16 +23,9 @@ import {
   TabPanels,
   Tabs,
   Text,
-  VStack,
+  VStack
 } from "@chakra-ui/react";
-import {
-  BuyerAddress,
-  Cart,
-  LineItem,
-  Me,
-  Order,
-  RequiredDeep,
-} from "ordercloud-javascript-sdk";
+import { Cart, LineItem, Order, RequiredDeep } from "ordercloud-javascript-sdk";
 import { useCallback, useEffect, useState } from "react";
 import { Link as RouterLink, useNavigate } from "react-router-dom";
 import CartSkeleton from "./ShoppingCartSkeleton";
@@ -41,7 +34,6 @@ import CartSummary from "./ShoppingCartSummary";
 export const ShoppingCart = (): JSX.Element => {
   const [loading, setLoading] = useState(true);
   const [lineItems, setLineItems] = useState<LineItem[]>();
-  const [returnLocations, setReturnLocations] = useState<BuyerAddress[]>();
   const [order, setOrder] = useState<RequiredDeep<Order>>();
   const [tabIndex, setTabIndex] = useState(0);
   const navigate = useNavigate();
@@ -77,25 +69,12 @@ export const ShoppingCart = (): JSX.Element => {
     setLineItems(undefined);
   }, [order?.ID]);
 
-  const getReturnLocations = useCallback(async () => {
-    setLoading(true);
-    try {
-      const result = await Me.ListAddresses();
-      setReturnLocations(result.Items);
-      setLoading(false);
-    } catch (err) {
-      console.log(err);
-      setLoading(false);
-    }
-  }, []);
-
   useEffect(() => {
     getOrder();
   }, [getOrder]);
 
   useEffect(() => {
     getLineItems();
-    getReturnLocations();
   }, [order, getLineItems]);
 
   const handleNextTab = () => {
@@ -129,7 +108,7 @@ export const ShoppingCart = (): JSX.Element => {
                   ml="auto"
                   p={{ base: 6, lg: 12 }}
                 >
-                  <Heading mb={6}>Equipment Trade-in</Heading>
+                  <Heading mb={6}>Checkout</Heading>
                   <Tabs
                     size="sm"
                     index={tabIndex}
@@ -137,9 +116,9 @@ export const ShoppingCart = (): JSX.Element => {
                     variant="soft-rounded"
                   >
                     <TabList>
-                      <Tab>Your Information</Tab>
-                      {/* <Tab>Shipping</Tab>
-                      <Tab>Payment</Tab> */}
+                      <Tab>Information</Tab>
+                      <Tab>Shipping</Tab>
+                      <Tab>Payment</Tab>
                     </TabList>
 
                     <TabPanels>
@@ -155,27 +134,48 @@ export const ShoppingCart = (): JSX.Element => {
                           </FormControl>
                         </Stack>
                         <Heading size="md" my={6}>
-                          Trade in location
+                          Shipping address
                         </Heading>
+                        <Stack direction={["column", "row"]} spacing={6}>
+                          <FormControl>
+                            <FormLabel>First Name</FormLabel>
+                            <Input placeholder="Enter first name" />
+                          </FormControl>
+                          <FormControl>
+                            <FormLabel>Last Name</FormLabel>
+                            <Input placeholder="Enter last name" />
+                          </FormControl>
+                        </Stack>
                         <FormControl>
-                          <FormLabel>Choose eligible location</FormLabel>
-                          <Select placeholder="Select state/territory">
-                            {returnLocations?.map((location) => (
-                              <option value={location.ID}>
-                                {location.CompanyName} | {location.Street1},{" "}
-                                {location.City}, {location.State} {location.Zip}
-                              </option>
-                            ))}
-                          </Select>
+                          <FormLabel>Company (optional)</FormLabel>
+                          <Input placeholder="Enter company name" />
                         </FormControl>
+                        <FormControl>
+                          <FormLabel>Address</FormLabel>
+                          <Input placeholder="Enter address" />
+                        </FormControl>
+                        <FormControl>
+                          <FormLabel>Suburb</FormLabel>
+                          <Input placeholder="Enter suburb" />
+                        </FormControl>
+                        <Stack direction={["column", "row"]} spacing={6}>
+                          <FormControl>
+                            <FormLabel>State/Territory</FormLabel>
+                            <Select placeholder="Select state/territory">
+                              <option value="mn">Minnesota</option>
+                            </Select>
+                          </FormControl>
+                          <FormControl>
+                            <FormLabel>Postcode</FormLabel>
+                            <Input placeholder="Enter postcode" />
+                          </FormControl>
+                        </Stack>
                         <Button
-                          as={RouterLink}
-                          to="/trade-in-confirmation"
                           alignSelf="flex-end"
                           onClick={handleNextTab}
                           mt={6}
                         >
-                          Complete trade-in
+                          Continue to shipping
                         </Button>
                       </TabPanel>
 
