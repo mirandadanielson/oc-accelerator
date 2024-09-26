@@ -39,7 +39,9 @@ import CartSkeleton from "./ShoppingCartSkeleton";
 import CartSummary from "./ShoppingCartSummary";
 
 export const ShoppingCart = (): JSX.Element => {
-  const [loading, setLoading] = useState(true);
+  const [loadingOrder, setLoadingOrder] = useState(true);
+  const [loadingItems, setLoadingItems] = useState(true);
+  const [loadingReturnLocations, setLoadingReturnLocations] = useState(true);
   const [lineItems, setLineItems] = useState<LineItem[]>();
   const [returnLocations, setReturnLocations] = useState<BuyerAddress[]>();
   const [order, setOrder] = useState<RequiredDeep<Order>>();
@@ -49,14 +51,14 @@ export const ShoppingCart = (): JSX.Element => {
   const getOrder = useCallback(async () => {
     const result = await Cart.Get();
     setOrder(result);
-    setLoading(false);
+    setLoadingOrder(false);
   }, []);
 
   const getLineItems = useCallback(async () => {
     if (!order?.ID) return;
     const result = await Cart.ListLineItems();
     setLineItems(result.Items);
-    setLoading(false);
+    setLoadingItems(false);
   }, [order]);
 
   const submitOrder = useCallback(async () => {
@@ -78,14 +80,14 @@ export const ShoppingCart = (): JSX.Element => {
   }, [order?.ID]);
 
   const getReturnLocations = useCallback(async () => {
-    setLoading(true);
+    setLoadingReturnLocations(true);
     try {
       const result = await Me.ListAddresses();
       setReturnLocations(result.Items);
-      setLoading(false);
+      setLoadingReturnLocations(false);
     } catch (err) {
       console.log(err);
-      setLoading(false);
+      setLoadingReturnLocations(false);
     }
   }, []);
 
@@ -111,7 +113,7 @@ export const ShoppingCart = (): JSX.Element => {
 
   return (
     <>
-      {loading ? (
+      {loadingItems || loadingItems || loadingReturnLocations ? (
         <CartSkeleton />
       ) : (
         <>
@@ -327,7 +329,7 @@ export const ShoppingCart = (): JSX.Element => {
                   mr="auto"
                   p={{ base: 6, lg: 12 }}
                 >
-                  {loading ? (
+                  {loadingItems || loadingItems || loadingReturnLocations ? (
                     <Spinner />
                   ) : (
                     <CartSummary

@@ -12,6 +12,7 @@ import { BuyerProduct } from "ordercloud-javascript-sdk";
 import { FunctionComponent } from "react";
 import { TbPhoto } from "react-icons/tb";
 import { Link as RouterLink } from "react-router-dom";
+import formatPrice from "../../utils/formatPrice";
 
 interface ProductCardProps {
   product: BuyerProduct;
@@ -90,7 +91,11 @@ const ProductCard: FunctionComponent<ProductCardProps> = ({ product }) => {
                 </Text> */}
                 <Heading size="lg">{product.Name}</Heading>
                 <Text fontSize="md" fontWeight="normal">
-                  
+                  {`${formatPrice(
+                    product?.xp?.BuyBackPriceRange?.Min ?? 0
+                  )} - ${formatPrice(
+                    product?.xp?.BuyBackPriceRange?.Max ?? 0
+                  )}`} potential credit
                 </Text>
               </VStack>
             </CardBody>
