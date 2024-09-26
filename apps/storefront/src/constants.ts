@@ -29,7 +29,7 @@ const IS_MULTI_LOCATION_INVENTORY = Boolean(IS_MULTILOCATION_STRING === "true");
 // Dashboard configs
 const DASHBOARD_HERO_TAGLINE =
   import.meta.env.VITE_APP_ORDERCLOUD_DASHBOARD_HERO_TAGLINE ||
-  `Welcome to ${APP_NAME} storefront app`;
+  `Welcome to Stellar Outdoor Equipment`;
 const DASHBOARD_HERO_IMAGE = import.meta.env
   .VITE_APP_ORDERCLOUD_DASHBOARD_HERO_IMAGE;
 const DASHBOARD_HERO_CTA_TEXT =
@@ -41,10 +41,10 @@ const DASHBOARD_HERO_CTA_LINK = import.meta.env
 const DASHBOARD_SECONDARY_IMAGE = import.meta.env
   .VITE_APP_ORDERCLOUD_DASHBOARD_HERO_TAGLINE;
 const DASHBOARD_SECONDARY_HEADING = import.meta.env
-  .VITE_APP_ORDERCLOUD_DASHBOARD_HERO_TAGLINE || "Secondary heading text";
+  .VITE_APP_ORDERCLOUD_DASHBOARD_HERO_TAGLINE || "We're glad you're here!";
 const DASHBOARD_SECONDARY_DESCRIPTION =
   import.meta.env.VITE_APP_ORDERCLOUD_DASHBOARD_SECONDARY_DESCRIPTION ||
-  "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.";
+  "Your trusted source for top-notch lawn equipment that helps you create and maintain the perfect yard. Whether you’re a gardening enthusiast or a professional landscaper, we offer a wide range of high-performance tools and machinery designed to make lawn care easy and efficient. From powerful mowers to precision trimmers, our equipment is built to tackle any job with ease. Transform your outdoor space into a lush, vibrant oasis—let’s grow together.";
 const DASHBOARD_SECONDARY_CTA_TEXT = import.meta.env
   .VITE_APP_ORDERCLOUD_DASHBOARD_HERO_TAGLINE || "Call to action";
 const DASHBOARD_SECONDARY_CTA_LINK = import.meta.env

@@ -1,5 +1,5 @@
 import { chakra, createIcon } from "@chakra-ui/react";
-import { APP_NAME } from "../constants";
+//import { APP_NAME } from "../constants";
 
 export const DEFAULT_BRAND = createIcon({
   displayName: "DEFAULT_BRAND",
@@ -40,7 +40,7 @@ export const DEFAULT_BRAND = createIcon({
         fontWeight="bold"
         fontFamily="monospace"
       >
-        {APP_NAME}
+        Stellar Outdoor Equipment
       </chakra.text>
     </>,
   ],

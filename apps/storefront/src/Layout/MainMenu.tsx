@@ -35,7 +35,7 @@ interface MainMenuProps {
 
 const MainMenu: FC<MainMenuProps> = ({ loginDisclosure }) => {
   const { data: user } = useCurrentUser();
-  const { isLoggedIn, logout } = useOrderCloudContext();
+  const { isLoggedIn, logout, isAuthenticated } = useOrderCloudContext();
   const megaMenuDisclosure = useDisclosure();
   const [catalogs, setCatalogs] = useState<Catalog[]>([]);
   const [selectedCatalog, setSelectedCatalog] = useState<string>("");
@@ -57,8 +57,8 @@ const MainMenu: FC<MainMenuProps> = ({ loginDisclosure }) => {
       }
     };
 
-    fetchCatalogs();
-  }, []);
+    if(isAuthenticated) fetchCatalogs();
+  }, [isAuthenticated]);
 
   const getTotalLineItemQuantity = useCallback(async () => {
     const result = await Cart.ListLineItems();
@@ -151,14 +151,14 @@ const MainMenu: FC<MainMenuProps> = ({ loginDisclosure }) => {
             <DEFAULT_BRAND h="10" />
           </RouterLink>
           <HStack as="nav" flexGrow="1" ml={3}>
-            <Button
+            {/* <Button
               isActive={megaMenuDisclosure.isOpen}
               size="sm"
               variant="ghost"
               onClick={megaMenuDisclosure.onToggle}
             >
               Categories
-            </Button>
+            </Button> */}
             {renderCatalogMenu()}
             {renderRecommerceMenu()}
           </HStack>

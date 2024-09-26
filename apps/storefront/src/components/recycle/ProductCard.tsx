@@ -85,9 +85,9 @@ const ProductCard: FunctionComponent<ProductCardProps> = ({ product }) => {
               </Center>
 
               <VStack w="full" minH={"120px"} alignItems="flex-start" p={6}>
-                <Text fontSize="xs" color="chakra-subtle-text">
+                {/* <Text fontSize="xs" color="chakra-subtle-text">
                   {product.ID}
-                </Text>
+                </Text> */}
                 <Heading size="lg">{product.Name}</Heading>
                 <Text fontSize="md" fontWeight="normal">
                   
