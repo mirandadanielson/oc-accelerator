@@ -8,7 +8,7 @@ import {
     VStack
 } from "@chakra-ui/react";
 import { LineItem, Order, RequiredDeep } from "ordercloud-javascript-sdk";
-import React from "react";
+import React, { useState } from "react";
 import { Link as RouterLink } from 'react-router-dom';
 import OcCurrentOrderLineItemList from "./OcCurrentOrderLineItemList";
 
@@ -24,9 +24,13 @@ const CartSummary: React.FC<CartSummaryProps> = ({
   lineItems,
   deleteOrder
 }) => {
-  const handleLineItemChange = (newLi: LineItem) => {
+  const [currentLineItems, setCurrentLineItems] = useState<LineItem[]>(lineItems);
+  const handleLineItemChange = (change: LineItem | string) => {
+    if (typeof change == "string") {
+      setCurrentLineItems((lis) => lis.filter(li => li.ID !== change))
+    }
     // Implement the logic to update the line item
-    console.log("Line item updated:", newLi);
+    console.log("Line item updated:", change);
   };
   return (
     <VStack align="stretch" spacing={6}>
@@ -45,7 +49,7 @@ const CartSummary: React.FC<CartSummaryProps> = ({
         </Button>
       </ButtonGroup>
       <OcCurrentOrderLineItemList
-        lineItems={lineItems}
+        lineItems={currentLineItems}
         emptyMessage="Your cart is empty"
         onChange={handleLineItemChange}
         editable={false}

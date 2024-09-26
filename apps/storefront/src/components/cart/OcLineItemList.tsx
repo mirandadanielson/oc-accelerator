@@ -7,7 +7,7 @@ interface OcLineItemListProps {
   emptyMessage?: string;
   editable?: boolean;
   lineItems?: LineItem[];
-  onChange: (newLineItem: LineItem) => void;
+  onChange: (change: LineItem | string) => void;
 }
 
 const OcLineItemList: FunctionComponent<OcLineItemListProps> = ({

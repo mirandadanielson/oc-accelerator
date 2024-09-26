@@ -33,7 +33,7 @@ import OcQuantityInput from "./OcQuantityInput";
 interface OcLineItemCardProps {
   lineItem: LineItem;
   editable?: boolean;
-  onChange?: (newLi: LineItem) => void;
+  onChange?: (change: LineItem | string) => void;
 }
 
 const OcLineItemCard: FunctionComponent<OcLineItemCardProps> = ({
@@ -52,11 +52,18 @@ const OcLineItemCard: FunctionComponent<OcLineItemCardProps> = ({
   const updateLineItem = useCallback(
     async (quantity: number) => {
       if (lineItem.Quantity === quantity) return;
-      const response = await Cart.PatchLineItem(lineItem.ID!, {
-        Quantity: quantity,
-      });
-      if (onChange) {
-        onChange(response);
+      if (quantity === 0) {
+        await Cart.DeleteLineItem(lineItem.ID!)
+        if (onChange) {
+          onChange(lineItem.ID!)
+        }
+      } else {
+        const response = await Cart.PatchLineItem(lineItem.ID!, {
+          Quantity: quantity,
+        });
+        if (onChange) {
+          onChange(response);
+        }
       }
     },
     [lineItem, onChange]
@@ -118,6 +125,7 @@ const OcLineItemCard: FunctionComponent<OcLineItemCardProps> = ({
             fontSize=".75rem"
             variant="link"
             colorScheme="accent"
+            onClick={() => updateLineItem(0)}
           >
             Remove
           </Button>
