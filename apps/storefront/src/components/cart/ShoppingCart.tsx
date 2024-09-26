@@ -113,7 +113,7 @@ export const ShoppingCart = (): JSX.Element => {
 
   return (
     <>
-      {loadingItems || loadingItems || loadingReturnLocations ? (
+      {loadingOrder || loadingItems || loadingReturnLocations ? (
         <CartSkeleton />
       ) : (
         <>
@@ -329,7 +329,7 @@ export const ShoppingCart = (): JSX.Element => {
                   mr="auto"
                   p={{ base: 6, lg: 12 }}
                 >
-                  {loadingItems || loadingItems || loadingReturnLocations ? (
+                  {loadingOrder || loadingItems || loadingReturnLocations ? (
                     <Spinner />
                   ) : (
                     <CartSummary
