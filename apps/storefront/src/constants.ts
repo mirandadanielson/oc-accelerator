@@ -29,7 +29,7 @@ const IS_MULTI_LOCATION_INVENTORY = Boolean(IS_MULTILOCATION_STRING === "true");
 // Dashboard configs
 const DASHBOARD_HERO_TAGLINE =
   import.meta.env.VITE_APP_ORDERCLOUD_DASHBOARD_HERO_TAGLINE ||
-  `Welcome to Stellar Outdoor Equipment`;
+  `Welcome to Sitecore Outdoor Equipment`;
 const DASHBOARD_HERO_IMAGE = import.meta.env
   .VITE_APP_ORDERCLOUD_DASHBOARD_HERO_IMAGE;
 const DASHBOARD_HERO_CTA_TEXT =

@@ -476,5 +476,68 @@
       "id": "15",
       "operator": ""
     }
+  },
+  {
+    "group": "BOGO",
+    "label": "Purchase a product in Category 1 get X% off a product in Category 2",
+    "isLineItemLevel": true,
+    "variables": [
+        {
+            "label": "Required Category",
+            "ordercloudProperty": "LineItem.Product.Category",
+            "token": "CATEGORY1",
+            "transformFunctionName": "",
+            "value": ""
+        },
+        {
+            "label": "Discounted Category",
+            "ordercloudProperty": "LineItem.Product.Category",
+            "token": "CATEGORY2",
+            "transformFunctionName": "",
+            "value": ""
+        },
+        {
+            "label": "Percent Discount",
+            "ordercloudProperty": "LineItem.UnitPrice",
+            "token": "PERCENT_DISCOUNT",
+            "transformFunctionName": "divideBy100",
+            "value": ""
+        }
+    ],
+    "eligibleExpressionQuery": {
+      "rules": [
+        {
+            "operator": "items.any",
+            "rules": [ 
+            {
+              "id": "1",
+              "field": "LineItem.Product.Category",
+              "operator": "=",
+              "valueSource": "value",
+              "value": "CATEGORY1"
+            }
+          ]
+        },
+        "and",
+        {
+          "id": "2",
+          "field": "LineItem.Product.Category",
+          "operator": "=",
+          "valueSource": "value",
+          "value": "CATEGORY2"
+        }         
+      ]
+    },
+    "valueExpressionQuery": {
+        "rules": [
+            {
+                "id": "3",
+                "field": "LineItem.UnitPrice",
+                "operator": "*",
+                "valueSource": "value",
+                "value": "PERCENT_DISCOUNT"
+            }
+        ]
+    }
   }
 ]

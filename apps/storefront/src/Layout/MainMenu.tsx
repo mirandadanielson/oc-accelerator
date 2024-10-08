@@ -114,20 +114,20 @@ const MainMenu: FC<MainMenuProps> = ({ loginDisclosure }) => {
     return null;
   };
 //adding a comment to trigger something to happen!
-  const renderRecommerceMenu = () => {
-    if (catalogs.length === 1) {
-      return (
-        <Button
-          as={RouterLink}
-          to={`/trade-in/${catalogs[0].ID}`}
-          variant="ghost"
-        >
-          Trade-in
-        </Button>
-      );
-    }
-    return null;
-  };
+  // const renderRecommerceMenu = () => {
+  //   if (catalogs.length === 1) {
+  //     return (
+  //       <Button
+  //         as={RouterLink}
+  //         to={`/trade-in/${catalogs[0].ID}`}
+  //         variant="ghost"
+  //       >
+  //         Trade-in
+  //       </Button>
+  //     );
+  //   }
+  //   return null;
+  // };
 
   return (
     <HStack
@@ -160,7 +160,6 @@ const MainMenu: FC<MainMenuProps> = ({ loginDisclosure }) => {
               Categories
             </Button> */}
             {renderCatalogMenu()}
-            {renderRecommerceMenu()}
           </HStack>
           <HStack>
             {isLoggedIn && (

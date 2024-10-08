@@ -49,7 +49,7 @@ export const ruleProcessor: CustomRuleProcessor = (
   if (formattedField.includes('Product.Category')) {
     const newField = formattedField.replace(
       'Product.Category',
-      `Product.incategory(${formattedValue})`
+      `product.incategory(${formattedValue})`
     )
     return newField
   }

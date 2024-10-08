@@ -40,7 +40,7 @@ export const DEFAULT_BRAND = createIcon({
         fontWeight="bold"
         fontFamily="monospace"
       >
-        Stellar Outdoor Equipment
+        Sitecore Outdoor Equipment
       </chakra.text>
     </>,
   ],
