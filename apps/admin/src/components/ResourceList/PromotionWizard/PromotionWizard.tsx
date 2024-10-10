@@ -24,6 +24,7 @@ import {
   theme,
   useColorMode,
   useDisclosure,
+  UseDisclosureReturn,
   useMediaQuery,
   useSteps,
   useToast,
@@ -42,16 +43,18 @@ import Step4 from './steps/Step4'
 import Step5 from './steps/Step5'
 import Step6 from './steps/Step6'
 
-interface PromotionWizardProps {}
+interface PromotionWizardProps {
+  createDrawerDisclosure?: UseDisclosureReturn
+}
 
-const PromotionWizard: FC<PromotionWizardProps> = () => {
+const PromotionWizard: FC<PromotionWizardProps> = ({ createDrawerDisclosure }) => {
   const { isOpen, onOpen, onClose } = useDisclosure()
   const [stepDescriptions, setStepDescriptions] = useState<string[]>([])
   const toast = useToast()
   const navigate = useNavigate()
   const [isLoading, setIsLoading] = useState(false)
   const [showUsageOptions, setShowUsageOptions] = useState(false)
-  const {colorMode} = useColorMode()
+  const { colorMode } = useColorMode()
 
   const initialValues = useMemo(() => {
     return {
@@ -63,9 +66,11 @@ const PromotionWizard: FC<PromotionWizardProps> = () => {
         Code: '',
         RedemptionLimit: null,
         RedemptionLimitPerUser: null,
-        CanCombine: false,
         EligibleExpression: '',
         ValueExpression: '',
+        Active: true,
+        AllowAllBuyers: true,
+        CanCombine: true
       },
       parameters: {
         promotionID: 'someval',
@@ -203,14 +208,22 @@ const PromotionWizard: FC<PromotionWizardProps> = () => {
 
   return (
     <>
-      <Button
-        ml="auto"
-        variant="solid"
-        colorScheme="primary"
-        onClick={onOpen}
-      >
-        Create Promotion
-      </Button>
+      <ButtonGroup ml="auto">
+        <Button
+          ml="auto"
+          variant="outline"
+          onClick={createDrawerDisclosure?.onOpen}
+        >
+          Create
+        </Button>
+        <Button
+          variant="solid"
+          colorScheme="primary"
+          onClick={onOpen}
+        >
+          Create With Wizard
+        </Button>
+      </ButtonGroup>
       <Modal
         isOpen={isOpen}
         onClose={onClose}

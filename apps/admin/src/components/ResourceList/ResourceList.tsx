@@ -1,4 +1,4 @@
-import { Box, Button, Flex, HStack, useDisclosure, useToast } from '@chakra-ui/react'
+import { Box, Button, Flex, HStack, useDisclosure, UseDisclosureReturn, useToast } from '@chakra-ui/react'
 import { useColumns, useDeleteOcResource, useHasAccess } from '@rwatt451/ordercloud-react'
 import {
   ColumnFiltersState,
@@ -36,7 +36,7 @@ interface ResourceListProps {
     [filterKey: string]: string
   }
   readOnly?: boolean,
-  createButton?: React.ReactNode
+  createButton?: (createDrawerDisclosure?: UseDisclosureReturn) => React.ReactNode
 }
 
 export const cellCallback = (cellValue: unknown, properties: OpenAPIV3.SchemaObject) => {
@@ -277,7 +277,7 @@ const ResourceList: FC<ResourceListProps> = ({ resourceName, readOnly, hrefResol
                   )}
                   {hasDirectionParam && <DirectionMenu />}
                   {!readOnly && isAdmin && (
-                    createButton ||
+                    createButton && createButton(createDrawerDisclosure) ||
                     <Button
                       ml="auto"
                       variant="solid"
